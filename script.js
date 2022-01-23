@@ -11,6 +11,7 @@ let firstNumber;
 let secondNumber;
 let calculation = null;
 let needScreenReset = false;
+let result = false;
 
 clearButton.addEventListener('click', clear);
 backButton.addEventListener('click', backspace);
@@ -28,6 +29,10 @@ function resetScreen(){
     needScreenReset = false;
 }
 function getNumber(number){
+    if (result){
+        resetScreen();
+        result = false;
+    }
     if (mainScreen.textContent ==='0' || needScreenReset){
         resetScreen();    
     }
@@ -84,6 +89,7 @@ function calculate(){
     mainScreen.textContent = roundResult(execute(firstNumber,calculation,secondNumber));
     secondaryScreen.textContent = firstNumber + ' ' +calculation+ ' ' +secondNumber+ ' =';
     calculation = null;
+    result = true;
 }
 function roundResult(number){
     return Math.round(number*1000)/1000;
